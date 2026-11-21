@@ -299,7 +299,6 @@ class MainActivity : Activity() {
         statusView = null
         stopTranscriptionButton = null
         val (page, scroll) = createPage()
-        page.addView(spaceScene(), matchWrap())
         page.addView(consoleStrip("FLIGHT PROCEDURE", "03 STEPS"), matchWrap())
         page.addView(eyebrow("GUIDA DI BORDO  /  PROCEDURA"), matchWrap())
         page.addView(title("Come funziona"), matchWrap())
