@@ -370,8 +370,12 @@ class MainActivity : Activity() {
             page.addView(option)
         }
 
-        page.addView(bodyText("A regime resta installato un solo modulo. L’audio viene processato sul dispositivo.", 14f), matchWrap())
-        page.addView(backButton { showTranscriptionScreen() }, matchWrap())
+        page.addView(
+            backButton { showTranscriptionScreen() },
+            LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT).apply {
+                topMargin = dp(14)
+            },
+        )
 
         setContentView(scroll)
         attachInsets(scroll, page)
