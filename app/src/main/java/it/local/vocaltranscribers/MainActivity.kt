@@ -358,7 +358,7 @@ class MainActivity : Activity() {
         page.addView(title("Scegli il modello"), matchWrap())
         page.addView(accentRule())
         page.addView(bodyText(
-            "Imposta il profilo prima di condividere i vocali. La scelta viene ricordata; la trascrizione parte senza altre richieste.",
+            "Imposta il profilo prima di condividere i vocali. La scelta viene ricordata.",
             14f,
         ), matchWrap())
         AsrModel.entries.forEach { model ->
