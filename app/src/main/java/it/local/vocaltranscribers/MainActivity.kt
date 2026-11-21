@@ -317,7 +317,7 @@ class MainActivity : Activity() {
                 addView(bodyText(description, 16f), matchWrap())
             }
             page.addView(stepPanel, matchWrap())
-            if (index < steps.lastIndex) page.addView(sequenceConnector(index + 1), matchWrap())
+            if (index < steps.lastIndex) page.addView(sequenceConnector(), matchWrap())
         }
         page.addView(bodyText(
             "La scelta del modello resta memorizzata: le prossime condivisioni partono senza chiedertelo. Audio e testo vengono elaborati localmente.",
@@ -1020,12 +1020,12 @@ class MainActivity : Activity() {
         addView(rightLabel, LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT))
     }
 
-    private fun sequenceConnector(number: Int) = LinearLayout(this).apply {
+    private fun sequenceConnector() = LinearLayout(this).apply {
         orientation = LinearLayout.HORIZONTAL
         gravity = Gravity.CENTER_VERTICAL
         setPadding(dp(24), dp(3), 0, dp(3))
         val marker = TextView(this@MainActivity).apply {
-            text = "▼  0" + number
+            text = "▼"
             textSize = 10f
             letterSpacing = 0.06f
             typeface = consoleTypeface
