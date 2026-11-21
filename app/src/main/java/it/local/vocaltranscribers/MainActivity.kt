@@ -317,7 +317,6 @@ class MainActivity : Activity() {
                 addView(bodyText(description, 16f), matchWrap())
             }
             page.addView(stepPanel, matchWrap())
-            if (index < steps.lastIndex) page.addView(sequenceConnector(), matchWrap())
         }
         page.addView(
             backButton { showTranscriptionScreen() },
@@ -1023,21 +1022,6 @@ class MainActivity : Activity() {
         }
         addView(leftLabel, LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f))
         addView(rightLabel, LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT))
-    }
-
-    private fun sequenceConnector() = LinearLayout(this).apply {
-        orientation = LinearLayout.HORIZONTAL
-        gravity = Gravity.CENTER_VERTICAL
-        setPadding(dp(24), dp(3), 0, dp(3))
-        val marker = TextView(this@MainActivity).apply {
-            text = "▼"
-            textSize = 10f
-            letterSpacing = 0.06f
-            typeface = consoleTypeface
-            setTextColor(ACCENT_GOLD)
-        }
-        addView(marker, LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT))
-        addView(View(this@MainActivity).apply { setBackgroundColor(ACCENT_BLUE) }, LinearLayout.LayoutParams(dp(1), dp(18)))
     }
 
     private fun transcriptionMetrics(): View {
