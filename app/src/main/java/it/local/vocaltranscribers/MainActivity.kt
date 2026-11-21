@@ -315,7 +315,12 @@ class MainActivity : Activity() {
                 addView(eyebrow("${heading.substringBefore("  /")}   /   ${heading.substringAfter("  /  ")}"), matchWrap())
                 addView(bodyText(description, 16f), matchWrap())
             }
-            page.addView(stepPanel, matchWrap())
+            page.addView(
+                stepPanel,
+                LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT).apply {
+                    if (index < steps.lastIndex) bottomMargin = dp(9)
+                },
+            )
         }
         page.addView(
             backButton { showTranscriptionScreen() },
