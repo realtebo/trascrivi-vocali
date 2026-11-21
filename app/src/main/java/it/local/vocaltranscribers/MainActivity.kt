@@ -879,7 +879,7 @@ class MainActivity : Activity() {
         stopTranscriptionButton?.visibility = View.VISIBLE
         setStatus(
             "La conversione di questo vocale, per via della lunghezza e del modello di trascrizione, " +
-                "sta impiegando più tempo del previsto. Puoi interrompere, scegliere un profilo inferiore e riprovare.",
+                "sta impiegando più tempo del previsto. Puoi attendere, oppure interrompere, scegliere un profilo inferiore e riprovare.",
         )
     }
 
