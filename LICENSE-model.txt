@@ -1,0 +1,14 @@
+Vosk small Italian model
+- Model: vosk-model-small-it-0.22
+- License: Apache License 2.0
+- Source: https://alphacephei.com/vosk/models
+
+Whisper ONNX models
+- tiny: csukuangfj/sherpa-onnx-whisper-tiny, revision 65176e2deb88badc814a94058666cadccc29b61c
+- base: csukuangfj/sherpa-onnx-whisper-base, revision bb53ee204431c90d314c1cc08d28d23e5b7927cc
+- small: csukuangfj/sherpa-onnx-whisper-small, revision 8f3c18b358db4d1f2fc1eae49d75cd20989e4309
+- medium: csukuangfj/sherpa-onnx-whisper-medium, revision 8c31d28
+- Model origin: OpenAI Whisper multilingual checkpoints, converted to ONNX for sherpa-onnx.
+- OpenAI states that Whisper code and model weights are released under the MIT License: https://github.com/openai/whisper/blob/main/LICENSE
+- The model files are downloaded from their upstream repositories at first selection.
+- ONNX runtime: https://github.com/k2-fsa/sherpa-onnx, Apache License 2.0.
