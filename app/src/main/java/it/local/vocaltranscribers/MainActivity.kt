@@ -303,16 +303,17 @@ class MainActivity : Activity() {
         statusView = null
         stopTranscriptionButton = null
         val (page, scroll) = createPage()
-        page.addView(consoleStrip("FLIGHT PROCEDURE", "03 STEPS"), matchWrap())
+        page.addView(consoleStrip("FLIGHT PROCEDURE", "04 STEPS"), matchWrap())
         page.addView(eyebrow("GUIDA DI BORDO  /  PROCEDURA"), matchWrap())
         page.addView(title("Come funziona"), matchWrap())
         page.addView(accentRule())
-        page.addView(bodyText("Tre passaggi per passare da un vocale WhatsApp al testo, tutto sul telefono.", 15f), matchWrap())
+        page.addView(bodyText("Quattro passaggi per passare da un vocale WhatsApp al testo, tutto sul telefono.", 15f), matchWrap())
 
         val steps = listOf(
-            "01  /  WHATSAPP" to "Apri la chat e individua il messaggio vocale da trascrivere.",
-            "02  /  CONDIVISIONE" to "Tocca Condividi e scegli “Trascrivi vocali in italiano”.",
-            "03  /  TRASCRIZIONE" to "L’app usa il modello selezionato e mostra il testo. Puoi copiarlo o condividerlo.",
+            "01  /  MODELLO" to "Scegli il modello di riconoscimento vocale per la trascrizione.",
+            "02  /  WHATSAPP" to "Apri la chat e individua il messaggio vocale da trascrivere.",
+            "03  /  CONDIVISIONE" to "Tocca Condividi e scegli “Trascrivi vocali in italiano”.",
+            "04  /  TRASCRIZIONE" to "L’app usa il modello selezionato e mostra il testo. Puoi copiarlo o condividerlo.",
         )
         steps.forEachIndexed { index, (heading, description) ->
             val stepPanel = panel().apply {
