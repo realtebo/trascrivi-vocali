@@ -329,7 +329,7 @@ class MainActivity : Activity() {
     }
 
     private fun guideButton() = Button(this).apply {
-        text = "GUIDA DI BORDO    /    APRI"
+        text = "GUIDA DI BORDO"
         textSize = 13f
         letterSpacing = 0.06f
         typeface = consoleTypeface
@@ -393,6 +393,10 @@ class MainActivity : Activity() {
         )
         page.addView(title(if (firstRun) "Benvenuto a bordo" else "Trascrivi"), matchWrap())
         page.addView(accentRule())
+        val modelButton = actionButton(if (selectedModel == null) "SCEGLI UN MODELLO" else "CAMBIA MODELLO") {
+            showSettingsScreen()
+        }
+        val guideNavigationButton = guideButton()
 
         if (firstRun) {
             page.addView(
@@ -414,23 +418,23 @@ class MainActivity : Activity() {
                 matchWrap(),
             )
             page.addView(
-                actionButton("SCEGLI UN MODELLO") { showSettingsScreen() },
+                modelButton,
                 LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT).apply {
                     topMargin = dp(4)
                     bottomMargin = dp(9)
                 },
             )
-            page.addView(guideButton(), matchWrap())
+            page.addView(guideNavigationButton, matchWrap())
         } else {
-            page.addView(
-                actionButton(if (selectedModel == null) "SCEGLI UN MODELLO" else "CAMBIA MODELLO") {
-                    showSettingsScreen()
-                },
-                LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT).apply {
-                    bottomMargin = dp(9)
-                },
-            )
-            page.addView(guideButton(), matchWrap())
+            if (!hasTranscriptionSession) {
+                page.addView(
+                    modelButton,
+                    LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT).apply {
+                        bottomMargin = dp(9)
+                    },
+                )
+                page.addView(guideNavigationButton, matchWrap())
+            }
 
             val homeMessage = when {
                 downloadingModel -> "Download di ${selectedModel!!.label} in corso. Torna alla selezione del modello per seguirne l’avanzamento."
@@ -494,6 +498,14 @@ class MainActivity : Activity() {
             )
             setActionEnabled(copyButton, currentTranscript.isNotBlank())
             setActionEnabled(shareButton, currentTranscript.isNotBlank())
+            page.addView(
+                modelButton,
+                LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT).apply {
+                    topMargin = dp(14)
+                    bottomMargin = dp(9)
+                },
+            )
+            page.addView(guideNavigationButton, matchWrap())
         } else {
             transcriptView = null
             transcriptionMetricsPanel = null
