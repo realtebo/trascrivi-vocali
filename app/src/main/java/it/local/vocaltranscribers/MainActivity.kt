@@ -438,6 +438,7 @@ class MainActivity : Activity() {
                 bodyText("Per prima cosa, scegli un modello (potrai sempre cambiarlo in seguito).", 15f),
                 matchWrap(),
             )
+            page.addView(guideNavigationButton, matchWrap())
             page.addView(
                 modelButton,
                 LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT).apply {
@@ -445,16 +446,15 @@ class MainActivity : Activity() {
                     bottomMargin = dp(9)
                 },
             )
-            page.addView(guideNavigationButton, matchWrap())
         } else {
             if (!hasTranscriptionSession) {
                 page.addView(
-                    modelButton,
+                    guideNavigationButton,
                     LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT).apply {
                         bottomMargin = dp(9)
                     },
                 )
-                page.addView(guideNavigationButton, matchWrap())
+                page.addView(modelButton, matchWrap())
             }
 
             val homeMessage = when {
@@ -520,13 +520,13 @@ class MainActivity : Activity() {
             setActionEnabled(copyButton, currentTranscript.isNotBlank())
             setActionEnabled(shareButton, currentTranscript.isNotBlank())
             page.addView(
-                modelButton,
+                guideNavigationButton,
                 LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT).apply {
                     topMargin = dp(14)
                     bottomMargin = dp(9)
                 },
             )
-            page.addView(guideNavigationButton, matchWrap())
+            page.addView(modelButton, matchWrap())
         } else {
             transcriptView = null
             transcriptionMetricsPanel = null
