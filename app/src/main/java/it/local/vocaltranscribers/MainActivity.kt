@@ -42,7 +42,6 @@ class MainActivity : Activity() {
     private val executor = Executors.newSingleThreadExecutor()
     private var statusView: TextView? = null
     private var transcriptView: TextView? = null
-    private var downloadStatusSection: View? = null
     private val modelChoiceViews = mutableListOf<ModelChoiceViews>()
     private var progressView: ProgressBar? = null
     private var stopTranscriptionButton: Button? = null
@@ -95,7 +94,6 @@ class MainActivity : Activity() {
 
     private enum class ProgressOwner {
         NONE,
-        DOWNLOAD,
         TRANSCRIPTION,
     }
 
@@ -298,7 +296,6 @@ class MainActivity : Activity() {
     private fun showFlowScreen() {
         progressOwner = ProgressOwner.NONE
         progressView = null
-        downloadStatusSection = null
         statusView = null
         stopTranscriptionButton = null
         val (page, scroll) = createPage()
@@ -350,9 +347,8 @@ class MainActivity : Activity() {
     }
 
     private fun showSettingsScreen() {
-        progressOwner = ProgressOwner.DOWNLOAD
+        progressOwner = ProgressOwner.NONE
         progressView = null
-        downloadStatusSection = null
         statusView = null
         stopTranscriptionButton = null
         val (page, scroll) = createPage()
@@ -374,20 +370,6 @@ class MainActivity : Activity() {
             page.addView(option)
         }
 
-        val downloadSection = LinearLayout(this).apply {
-            orientation = LinearLayout.VERTICAL
-            visibility = if (downloadingModel) View.VISIBLE else View.GONE
-            addView(sectionLabel("STATO DEL DOWNLOAD"), matchWrap())
-            addView(panel().apply {
-                statusView = bodyText(if (downloadingModel) statusMessage else "", 14f)
-                addView(statusView, matchWrap())
-                progressView = progressBar().apply { visibility = if (downloadingModel) View.VISIBLE else View.GONE }
-                addView(progressView, matchWrap())
-            }, matchWrap())
-        }
-        downloadStatusSection = downloadSection
-        page.addView(downloadSection, matchWrap())
-
         page.addView(bodyText("A regime resta installato un solo modulo. L’audio viene processato sul dispositivo.", 14f), matchWrap())
         page.addView(backButton { showTranscriptionScreen() }, matchWrap())
 
@@ -399,7 +381,6 @@ class MainActivity : Activity() {
     private fun showTranscriptionScreen() {
         progressOwner = ProgressOwner.TRANSCRIPTION
         progressView = null
-        downloadStatusSection = null
         statusView = null
         stopTranscriptionButton = null
         val (page, scroll) = createPage()
@@ -930,7 +911,6 @@ class MainActivity : Activity() {
     private fun renderProgress() {
         val view = progressView ?: return
         val visible = when (progressOwner) {
-            ProgressOwner.DOWNLOAD -> downloadingModel
             ProgressOwner.TRANSCRIPTION -> busy && !downloadingModel
             ProgressOwner.NONE -> false
         }
@@ -952,8 +932,6 @@ class MainActivity : Activity() {
     private fun setBusyUi(value: Boolean) {
         busy = value
         updateModelChoiceViews()
-        downloadStatusSection?.visibility =
-            if (value && downloadingModel) View.VISIBLE else View.GONE
         renderProgress()
     }
 
