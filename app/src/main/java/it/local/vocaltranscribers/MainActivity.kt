@@ -1106,101 +1106,12 @@ class MainActivity : Activity() {
         indeterminateTintList = ColorStateList.valueOf(ACCENT_BLUE)
     }
 
-    private fun spaceScene(): View = object : View(this) {
-        private val starPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply { color = 0xFFB9DCEB.toInt() }
-        private val signalPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply { color = 0xFFE6B85B.toInt(); style = Paint.Style.FILL }
-        private val moonPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply { color = 0xFFDCEAF0.toInt(); style = Paint.Style.FILL }
-        private val moonShadowPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply { color = BACKGROUND; style = Paint.Style.FILL }
-        private val moonRimPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-            color = ACCENT_GOLD
-            style = Paint.Style.STROKE
-            strokeWidth = resources.displayMetrics.density * 1.4f
-        }
-        private val linePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply { color = 0xFF4C93A8.toInt(); style = Paint.Style.STROKE; strokeWidth = dp(1).toFloat() }
-        private val thinLinePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply { color = 0xFF4C93A8.toInt(); style = Paint.Style.STROKE; strokeWidth = resources.displayMetrics.density * 0.7f }
-        private val glowPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply { color = 0x334FC4E0; style = Paint.Style.FILL }
-        private val wavePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-            color = ACCENT_BLUE
-            style = Paint.Style.STROKE
-            strokeWidth = resources.displayMetrics.density * 1.2f
-        }
-        private val pIqaDPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-            color = ACCENT_GOLD
-            typeface = resources.getFont(R.font.klingon_piqad_hasta)
-            textSize = dp(24).toFloat()
-            textAlign = Paint.Align.CENTER
-        }
-
-        override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-            setMeasuredDimension(MeasureSpec.getSize(widthMeasureSpec), dp(220))
-        }
-
-        override fun onDraw(canvas: Canvas) {
-            super.onDraw(canvas)
-            val w = width.toFloat()
-            val h = height.toFloat()
-
-            // A crescent emits signal traces that resolve into the pIqaD word jatlh (“speak”).
-            val moonX = w * .27f
-            val moonY = h * .50f
-            val moonRadius = dp(34).toFloat()
-            canvas.drawCircle(moonX, moonY, moonRadius + dp(12), glowPaint)
-            canvas.drawCircle(moonX, moonY, moonRadius, moonPaint)
-            canvas.drawCircle(moonX - dp(15), moonY - dp(2), moonRadius * .84f, moonShadowPaint)
-            canvas.drawArc(
-                moonX - moonRadius,
-                moonY - moonRadius,
-                moonX + moonRadius,
-                moonY + moonRadius,
-                -62f,
-                124f,
-                false,
-                moonRimPaint,
-            )
-            canvas.drawCircle(moonX + dp(21), moonY - dp(8), dp(2).toFloat(), thinLinePaint)
-            canvas.drawCircle(moonX + dp(27), moonY + dp(10), dp(1).toFloat(), thinLinePaint)
-
-            val waveStart = moonX + dp(27)
-            val waveEnd = w * .60f
-            for (row in -1..1) {
-                val offset = dp(row * 9).toFloat()
-                val trace = Path().apply {
-                    moveTo(waveStart, moonY + offset)
-                    cubicTo(
-                        waveStart + dp(11),
-                        moonY + offset - dp(10),
-                        waveStart + dp(24),
-                        moonY + offset - dp(10),
-                        waveStart + dp(34),
-                        moonY + offset,
-                    )
-                    cubicTo(
-                        waveStart + dp(46),
-                        moonY + offset + dp(10),
-                        waveEnd - dp(13),
-                        moonY + offset + dp(7),
-                        waveEnd,
-                        moonY + offset,
-                    )
-                }
-                canvas.drawPath(trace, wavePaint)
-            }
-            canvas.drawCircle(waveEnd + dp(5), moonY, dp(2).toFloat(), signalPaint)
-            canvas.drawText("\uF8D8\uF8D0\uF8E4", w * .70f, moonY + dp(9), pIqaDPaint)
-
-            // Navigation console framing and signal marks.
-            val bracket = Path().apply {
-                moveTo(dp(8).toFloat(), dp(25).toFloat()); lineTo(dp(8).toFloat(), dp(8).toFloat()); lineTo(dp(42).toFloat(), dp(8).toFloat())
-                moveTo(w - dp(42).toFloat(), dp(8).toFloat()); lineTo(w - dp(8).toFloat(), dp(8).toFloat()); lineTo(w - dp(8).toFloat(), dp(25).toFloat())
-                moveTo(dp(8).toFloat(), h - dp(25).toFloat()); lineTo(dp(8).toFloat(), h - dp(8).toFloat()); lineTo(dp(42).toFloat(), h - dp(8).toFloat())
-                moveTo(w - dp(42).toFloat(), h - dp(8).toFloat()); lineTo(w - dp(8).toFloat(), h - dp(8).toFloat()); lineTo(w - dp(8).toFloat(), h - dp(25).toFloat())
-            }
-            canvas.drawPath(bracket, linePaint)
-            val stars = arrayOf(.08f to .19f, .18f to .78f, .31f to .21f, .48f to .82f, .56f to .17f, .91f to .19f, .68f to .88f)
-            stars.forEachIndexed { index, p -> canvas.drawCircle(w * p.first, h * p.second, dp(if (index % 3 == 0) 2 else 1).toFloat(), starPaint) }
-            canvas.drawRect(dp(16).toFloat(), h - dp(18), dp(50).toFloat(), h - dp(16), signalPaint)
-            canvas.drawRect(w - dp(50), dp(16).toFloat(), w - dp(16), dp(18).toFloat(), linePaint)
-        }
+    private fun spaceScene(): View = android.widget.ImageView(this).apply {
+        setImageResource(R.drawable.parabolic_signal_scene)
+        scaleType = android.widget.ImageView.ScaleType.FIT_CENTER
+        adjustViewBounds = true
+        contentDescription = "Antenna parabolica: le onde radio diventano simboli klingon"
+        importantForAccessibility = View.IMPORTANT_FOR_ACCESSIBILITY_NO
     }
 
     private fun actionButton(label: String, action: () -> Unit) = Button(this).apply {
