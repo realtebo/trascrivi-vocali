@@ -51,6 +51,8 @@ class MainActivity : Activity() {
     private var timeMetricValue: TextView? = null
     private var copyButton: Button? = null
     private var shareButton: Button? = null
+    private var modelNavButton: Button? = null
+    private var guideNavButton: Button? = null
     private var pendingAudio: Uri? = null
     private var hasTranscriptionSession = false
     private var currentTranscript = ""
@@ -294,6 +296,8 @@ class MainActivity : Activity() {
     }
 
     private fun showFlowScreen() {
+        modelNavButton = null
+        guideNavButton = null
         progressOwner = ProgressOwner.NONE
         progressView = null
         statusView = null
@@ -352,6 +356,8 @@ class MainActivity : Activity() {
     }
 
     private fun showSettingsScreen() {
+        modelNavButton = null
+        guideNavButton = null
         progressOwner = ProgressOwner.NONE
         progressView = null
         statusView = null
@@ -388,6 +394,8 @@ class MainActivity : Activity() {
     }
 
     private fun showTranscriptionScreen() {
+        modelNavButton = null
+        guideNavButton = null
         progressOwner = ProgressOwner.TRANSCRIPTION
         progressView = null
         statusView = null
@@ -405,7 +413,11 @@ class MainActivity : Activity() {
         val modelButton = actionButton("Scegli il modello") { showSettingsScreen() }.apply {
             transformationMethod = null
         }
+        modelNavButton = modelButton
+        setActionEnabled(modelButton, !busy)
         val guideNavigationButton = guideButton()
+        guideNavButton = guideNavigationButton
+        setActionEnabled(guideNavigationButton, !busy)
 
         if (firstRun) {
             page.addView(
@@ -952,6 +964,8 @@ class MainActivity : Activity() {
 
     private fun setBusyUi(value: Boolean) {
         busy = value
+        setActionEnabled(modelNavButton, !value)
+        setActionEnabled(guideNavButton, !value)
         updateModelChoiceViews()
         renderProgress()
     }
