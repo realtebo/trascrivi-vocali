@@ -177,10 +177,10 @@ class MainActivity : Activity() {
             canvas.drawPath(frame, framePaint)
 
             when (state) {
-                ModelBadgeState.SELECT -> drawLabel(canvas, "SELECT", TEXT_SECONDARY, 9f)
+                ModelBadgeState.SELECT -> drawLabel(canvas, "SCEGLI", TEXT_SECONDARY, 9f)
                 ModelBadgeState.CONFIRM -> drawLabel(canvas, "Confirm", ACCENT_GOLD, 9f)
                 ModelBadgeState.ACTIVE -> {
-                    drawLabel(canvas, "ACTIVE", ACCENT_CYAN, 9f)
+                    drawLabel(canvas, "ATTIVO", ACCENT_CYAN, 9f)
                     val centerX = width / 2f
                     canvas.drawCircle(centerX - px(29f), height / 2f, px(1.4f), fillPaint)
                     canvas.drawCircle(centerX + px(29f), height / 2f, px(1.4f), fillPaint)
@@ -697,9 +697,9 @@ class MainActivity : Activity() {
             choice.marker.setTextColor(if (confirming) ACCENT_GOLD else if (active || downloading) ACCENT_CYAN else ACCENT_BLUE)
             val stateDescription = when {
                 downloading -> "download in corso${progressValue?.let { ", $it percento" }.orEmpty()}"
-                active -> "Active"
+                active -> "Attivo"
                 confirming -> "tocca di nuovo entro cinque secondi per confermare"
-                else -> "Select per scegliere"
+                else -> "Scegli per selezionare"
             }
             choice.row.contentDescription = "${modelDisplayName(choice.model)}, ${modelSpecs(choice.model)}, $stateDescription"
             choice.row.isEnabled = !busy
