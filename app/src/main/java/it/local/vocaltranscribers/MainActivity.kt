@@ -319,11 +319,12 @@ class MainActivity : Activity() {
             page.addView(stepPanel, matchWrap())
             if (index < steps.lastIndex) page.addView(sequenceConnector(), matchWrap())
         }
-        page.addView(bodyText(
-            "La scelta del modello resta memorizzata: le prossime condivisioni partono senza chiedertelo. Audio e testo vengono elaborati localmente.",
-            14f,
-        ), matchWrap())
-        page.addView(backButton { showTranscriptionScreen() }, matchWrap())
+        page.addView(
+            backButton { showTranscriptionScreen() },
+            LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT).apply {
+                topMargin = dp(14)
+            },
+        )
         setContentView(scroll)
         attachInsets(scroll, page)
     }
