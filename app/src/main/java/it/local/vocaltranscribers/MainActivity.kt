@@ -333,7 +333,8 @@ class MainActivity : Activity() {
     }
 
     private fun guideButton() = Button(this).apply {
-        text = "GUIDA DI BORDO"
+        text = "Come funziona"
+        transformationMethod = null
         textSize = 13f
         letterSpacing = 0.06f
         typeface = consoleTypeface
@@ -401,8 +402,8 @@ class MainActivity : Activity() {
         )
         page.addView(title(if (firstRun) "Benvenuto a bordo" else "Trascrivi"), matchWrap())
         page.addView(accentRule())
-        val modelButton = actionButton(if (selectedModel == null) "SCEGLI UN MODELLO" else "CAMBIA MODELLO") {
-            showSettingsScreen()
+        val modelButton = actionButton("Scegli il modello") { showSettingsScreen() }.apply {
+            transformationMethod = null
         }
         val guideNavigationButton = guideButton()
 
